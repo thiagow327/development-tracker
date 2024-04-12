@@ -35,26 +35,24 @@ export default defineComponent({
     name: 'FormularioNovaTarefa',
     data() {
         return {
-            tempoEmSegundos: 0
+            tempoEmSegundos: 0,
+            cronometro: 0
         }
     },
     computed: {
         tempoDecorrido(): string {
-            return new Date(this.tempoEmSegundos * 1000).toISOString().substring(11,19)
+            return new Date(this.tempoEmSegundos * 1000).toISOString().substring(11, 19)
         }
     },
     methods: {
         iniciarContagem() {
             // 1seg == 1000ms
-            setInterval(() => {
+            this.cronometro = setInterval(() => {
                 this.tempoEmSegundos += 1
             }, 1000)
-            console.log('iniciando contagem');
-
         },
         finalizarContagem() {
-            console.log('finalizando contagem');
-
+            clearInterval(this.cronometro)
         }
     }
 })
