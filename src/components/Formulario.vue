@@ -7,15 +7,15 @@
             <div class="column">
                 <div class="is-flex is-align-items-center is-justify-content-space-between">
                     <section>
-                        <strong>00:00:00</strong>
+                        <strong>{{ tempoDecorrido }}</strong>
                     </section>
-                    <button type="button">
+                    <button type="button" @click="iniciarContagem">
                         <span class="icon">
                             <i class="fas fa-play"></i>
                         </span>
                         <span>play</span>
                     </button>
-                    <button type="button">
+                    <button type="button" @click="finalizarContagem">
                         <span class="icon">
                             <i class="fas fa-stop"></i>
                         </span>
@@ -32,7 +32,31 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'FormularioNovaTarefa'
+    name: 'FormularioNovaTarefa',
+    data() {
+        return {
+            tempoEmSegundos: 0
+        }
+    },
+    computed: {
+        tempoDecorrido(): string {
+            return new Date(this.tempoEmSegundos * 1000).toISOString().substring(11,19)
+        }
+    },
+    methods: {
+        iniciarContagem() {
+            // 1seg == 1000ms
+            setInterval(() => {
+                this.tempoEmSegundos += 1
+            }, 1000)
+            console.log('iniciando contagem');
+
+        },
+        finalizarContagem() {
+            console.log('finalizando contagem');
+
+        }
+    }
 })
 
 </script>
